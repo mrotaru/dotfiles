@@ -17,6 +17,5 @@ files=(
 cd ~
 for file in "${!files[@]}"; do
     url="${remote}${files[file]}"
-    echo "downloading: $url"
-    curl -O "$url"
+    curl -s --write-out "%{url_effective} %{http_code}\n" -O "$url"
 done
