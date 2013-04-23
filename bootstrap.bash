@@ -16,5 +16,7 @@ files=(
 # go to home directory and feth the files
 cd ~
 for file in "${!files[@]}"; do
-    curl -O "${remote}${host[idx]}"
+    url="${remote}${files[file]}"
+    echo "downloading: $url"
+    curl -O "$url"
 done
