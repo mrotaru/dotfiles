@@ -19,3 +19,5 @@ for file in "${!files[@]}"; do
     url="${remote}${files[file]}"
     curl -s --write-out "%{url_effective} %{http_code}\n" -O "$url"
 done
+
+[ -f "$HOME/.profile" ] && source "$HOME/.profile"
