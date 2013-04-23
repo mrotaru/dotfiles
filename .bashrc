@@ -5,7 +5,7 @@
 if [ -d "/etc/bash_completion.d" ]; then
     for comp_file in /etc/bash_completion.d/*
     do
-#        echo "loading completion: $comp_file"
+        echo "loading completion: $comp_file"
         . "$comp_file"
     done
 fi
@@ -21,9 +21,6 @@ else
 \033[32m\]\u@\h \[\033[33m\w$(__git_ps1)\033[0m\]
 $ '
 fi
-
-# default folder
-cd /e/projekts
 
 # don't add duplicate entries to history
 export HISTCONTROL=ignoreboth:erasedups
