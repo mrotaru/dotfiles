@@ -11,6 +11,7 @@ files=(
  .inputrc
  .profile
  .screenrc
+ .gitconfig
  )
 
 # go to home directory and feth the files
