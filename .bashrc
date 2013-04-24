@@ -1,7 +1,6 @@
-echo "AAAAAAAAA"
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 [ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
-[ -f "$HOME/.inputrc" ] && source "$HOME/.inputrc"
+[ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
 # completion
 if [ -d "/etc/bash_completion.d" ]; then
