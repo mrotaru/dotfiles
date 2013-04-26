@@ -12,6 +12,7 @@ files=(
  .profile
  .screenrc
  .gitconfig
+ .tmux.conf
  )
 
 # go to home directory and feth the files
