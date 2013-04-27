@@ -22,7 +22,7 @@ function get_file()
         curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1"
     else
         if [ $(command -v wget) ]; then
-            wget --no-verbose "$1"
+            wget --no-verbose "$1" -O "$2"
         fi
     fi
 }
@@ -31,7 +31,7 @@ function get_file()
 cd ~
 for file in "${!files[@]}"; do
     url="${remote}${files[file]}"
-    get_file "$url"
+    get_file "$url" "${files[file]}"
 done
 
 [ -f "$HOME/.profile" ] && source "$HOME/.profile"
