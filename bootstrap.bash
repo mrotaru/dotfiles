@@ -13,6 +13,7 @@ files=(
  .screenrc
  .gitconfig
  .tmux.conf
+ .vimperatorrc
  )
 
 # download a single file in the current directory - use curl or wget
