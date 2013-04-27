@@ -3,8 +3,8 @@
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
 # completion
-if [ -d "/etc/bash_completion.d" ]; then
-    for comp_file in /etc/bash_completion.d/*
+if [ -d "/etc/bash_completion.d" ] && [ "$OSTYPE"="msys" ]; then
+    for comp_file in "/etc/bash_completion.d/*"
     do
         echo "loading completion: $comp_file"
         . "$comp_file"
