@@ -15,11 +15,23 @@ files=(
  .tmux.conf
  )
 
+# download a single file in the current directory - use curl or wget
+function get_file()
+{
+    if [ $(command -v curl) ]; then
+        curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1"
+    else
+        if [ $(command -v wget) ]; then
+            wget --no-verbose "$1"
+        fi
+    fi
+}
+    
 # go to home directory and feth the files
 cd ~
 for file in "${!files[@]}"; do
     url="${remote}${files[file]}"
-    curl -s --write-out "%{url_effective} %{http_code}\n" -O "$url"
+    get_file "$url"
 done
 
 [ -f "$HOME/.profile" ] && source "$HOME/.profile"
