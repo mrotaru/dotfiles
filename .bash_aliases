@@ -71,7 +71,7 @@ alias vd="vagrant destroy"
 alias vdu="vagrant destroy -f && vagrant up"
 alias vs="vagrant status"
 alias vss="vagrant ssh"
-alias vsu"vagrant suspend"
+alias vsu="vagrant suspend"
 
 #-----------------------------------------------------------------
 # git
