@@ -69,7 +69,9 @@ alias lla='ls -lAgGht --time-style=+"%d-%b-%y"'
 alias vu="vagrant up"
 alias vd="vagrant destroy"
 alias vdu="vagrant destroy -f && vagrant up"
-alias vs="vagrant suspend"
+alias vs="vagrant status"
+alias vss="vagrant ssh"
+alias vsu"vagrant suspend"
 
 #-----------------------------------------------------------------
 # git
