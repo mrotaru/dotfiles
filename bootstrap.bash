@@ -16,16 +16,6 @@ files=(
  .vimperatorrc
  )
 
-function get_with_curl() 
-{
-    curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1"
-}
-
-function get_with_wget()
-{
-    wget --no-verbose "$1" -O "$2"
-}
-
 # set download method - curl or wget
 command -v curl >/dev/null 2>&1
 if [ $? -eq 0 ]; then
