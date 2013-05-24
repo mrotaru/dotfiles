@@ -16,18 +16,35 @@ files=(
  .vimperatorrc
  )
 
-# download a single file in the current directory - use curl or wget
+function get_with_curl() 
+{
+    curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1"
+}
+
+function get_with_wget()
+{
+    wget --no-verbose "$1" -O "$2"
+}
+
+# set download method - curl or wget
+command -v curl >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+   get_method="curl"
+else
+    command -v wget >/dev/null 2>&1
+    [ $? -eq 0 ] && get_method="wget"
+fi
+[ -z "$get_method" ] && { echo "Neither wget nor curl found. Exiting..."; exit 1; }
+
+# download a single file in the current directory
 function get_file()
 {
-    if [ $(command -v curl) ]; then
-        curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1"
-    else
-        if [ $(command -v wget) ]; then
-            wget --no-verbose "$1" -O "$2"
-        fi
-    fi
+    case "$get_method" in
+        "curl") curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1" ;;
+        "wget") wget --no-verbose "$1" -O "$2" ;;
+    esac
 }
-    
+
 # go to home directory and feth the files
 cd ~
 for file in "${!files[@]}"; do
