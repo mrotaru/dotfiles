@@ -26,9 +26,13 @@ else
 fi
 [ -z "$get_method" ] && { echo "Neither wget nor curl found. Exiting..."; exit 1; }
 
+# backups folder - to be used for files which already exist
+backup_dir=$(date +"%Y-%m-%dT%k-%M")
+
 # download a single file in the current directory
 function get_file()
 {
+    [ -f "$2" ] && { [ ! -d "$backup_dir" ] && mkdir "$backup_dir"; cp "$2" "$backup_dir"; }
     case "$get_method" in
         "curl") curl -s --write-out "%{url_effective} %{http_code}\n" -O "$1" ;;
         "wget") wget --no-verbose "$1" -O "$2" ;;
