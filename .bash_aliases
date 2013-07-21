@@ -30,6 +30,7 @@ alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | se
 alias ec="cat /dev/clipboard | bash"
 alias ea="source ~/.bash_aliases"
 alias vim="vi"
+alias nicepath="echo \$PATH | tr ':' '\n'"
 
 #-----------------------------------------------------------------
 # navigation
