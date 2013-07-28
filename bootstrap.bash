@@ -14,6 +14,7 @@ files=(
  .gitconfig
  .tmux.conf
  .vimperatorrc
+ .pdbrc
  )
 
 # set download method - curl or wget
