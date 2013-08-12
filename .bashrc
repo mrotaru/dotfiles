@@ -1,8 +1,9 @@
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 [ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
+[ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
 # completion
-if [ -d "/etc/bash_completion.d" ]; then
+if [ -d "/etc/bash_completion.d" ] && [ $OSTYPE = "msys" ]; then
     for comp_file in /etc/bash_completion.d/*
     do
         echo "loading completion: $comp_file"

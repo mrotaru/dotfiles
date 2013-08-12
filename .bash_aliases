@@ -1,6 +1,5 @@
 #-----------------------------------------------------------------
 # this file is sourced by the shell at startup ( see .bashrc )
-# contains bash aliases
 #-----------------------------------------------------------------
 
 OS=`uname`
@@ -30,6 +29,8 @@ alias rbak='restore_backup'
 alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
 alias ec="cat /dev/clipboard | bash"
 alias ea="source ~/.bash_aliases"
+alias vim="vi"
+alias nicepath="echo \$PATH | tr ':' '\n'"
 
 #-----------------------------------------------------------------
 # navigation
@@ -51,6 +52,7 @@ fi
 # the 'ls' zoo
 #-----------------------------------------------------------------
 alias l.='ls -d .*'     # list hidden files/folders
+alias la='ls -a'     	# list files, including hidden files/folders
 alias ll='ls -lgGht'    # sort by modified time, human-readable 
 alias llo='ls -lht'     # like ll, but show owner/group info
 alias lld='ls -ludh */' # list directories
@@ -63,15 +65,19 @@ alias lla='ls -lAgGht --time-style=+"%d-%b-%y"'
 #alias ll='(tput rmam; ls -lgGht --time-style=+"%d-%b-%y"; tput smam)'
 #alias lln='(tput rmam; ls -lgGh --time-style=+"%d-%b-%y"; tput smam)'
 
+#-----------------------------------------------------------------
+# vagrant
+#-----------------------------------------------------------------
+alias vu="vagrant up"
+alias vd="vagrant destroy"
+alias vdu="vagrant destroy -f && vagrant up"
+alias vs="vagrant status"
+alias vss="vagrant ssh"
+alias vsu="vagrant suspend"
 
 #-----------------------------------------------------------------
-# finnaly, some aliases that are written for specific applicatons
-#-----------------------------------------------------------------
-
-# find_car.py
-alias car="./find_car.py"
-
 # git
+#-----------------------------------------------------------------
 alias gobj="find .git/objects/ | egrep -o '/[0-9a-f]{2}/[0-9a-f]{38}' | tr -d '/'"
 alias got='gobj | while read git_obj_id; do toex="git cat-file -t $git_obj_id"; echo $git_obj_id `$toex`; done'
 alias gf='git-forest'
@@ -98,5 +104,6 @@ alias gca='git commit -v -a'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gap='git add --patch'
-alias glg="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
+alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 # <<
