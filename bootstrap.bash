@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # link to github repository
-remote="https://raw.github.com/mihai-rotaru/dotfiles/master/"
+remote="https://raw.github.com/mrotaru/dotfiles/master/"
 
 # which files are to be copied
 files=(
