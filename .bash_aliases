@@ -74,6 +74,8 @@ alias vdu="vagrant destroy -f && vagrant up"
 alias vs="vagrant status"
 alias vss="vagrant ssh"
 alias vsu="vagrant suspend"
+alias vup="vagrant up --provision"
+alias vdup="vagrant destroy -f && vagrant up --provision"
 
 #-----------------------------------------------------------------
 # git
@@ -90,6 +92,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gb='git branch'
 alias gd='git diff'
+alias gdp='git diff HEAD^1' # diff from previous commit
 alias gcm='git commit -a -v -m'
 alias co='git checkout'
 # from http://meitsinblawg.wordpress.com/2010/04/20/my-setup-for-git-on-command-line/
