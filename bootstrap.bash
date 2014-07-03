@@ -5,9 +5,10 @@ remote="https://raw.githubusercontent.com/mrotaru/dotfiles/master/"
 
 # which files are to be copied
 files=(
+ .bashrc
+ .bash_interactive
  .bash_aliases
  .bash_functions
- .bashrc
  .inputrc
  .profile
  .screenrc
