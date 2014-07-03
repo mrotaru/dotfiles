@@ -2,6 +2,7 @@
 
 # unlimited entries in history
 export HISTFILESIZE=
+export HISTSIZE=
 
 # timestam history entries
 export HISTTIMEFORMAT="%d-%m-%Y %T "
