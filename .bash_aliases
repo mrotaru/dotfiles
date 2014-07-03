@@ -8,11 +8,10 @@ OS=`uname`
 # first, some general aliases that didn't fit anywhere else
 #-----------------------------------------------------------------
 alias eb='vim ~/.bashrc'
-alias bashrc='vim ~/.bashrc && source ~/.bashrc'
 alias sb='source ~/.bashrc'
 alias ea='vim ~/.bash_aliases'
+alias sa="source ~/.bash_aliases"
 alias ef='vim ~/.bash_functions'
-alias ei='vim ~/.inputrc'
 alias duhs='du -hs'
 alias dfh='df -h'
 alias duh='find . -maxdepth 1 -exec du -hs {} \;'
@@ -28,7 +27,6 @@ alias bak='backup_current_dir'
 alias rbak='restore_backup'
 alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
 alias ec="cat /dev/clipboard | bash"
-alias ea="source ~/.bash_aliases"
 alias vim="vi"
 alias nicepath="echo \$PATH | tr ':' '\n'"
 
@@ -110,3 +108,15 @@ alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 # <<
+
+#-----------------------------------------------------------------
+# Node
+#-----------------------------------------------------------------
+alias mocha='./node_modules/mocha/bin/mocha'
+alias clientjade='./node_modules/clientjade/bin/clientjade'
+alias sequelize='./node_modules/sequelize/bin/sequelize'
+
+#-----------------------------------------------------------------
+# Tools
+#-----------------------------------------------------------------
+[ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
