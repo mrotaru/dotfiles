@@ -40,7 +40,7 @@ alias ...="cd ../.."    # go to grandparent dir
 alias -- -="cd -"       # go to previous dir
 alias cdh='cd ~'        # go to home dir
 alias cdp='cd ~/Projects'
-if [[ "{$OS}" =~ MINGW* ]]
+if [[ "$OS" = MINGW* ]]
 then
     alias nav='explorer . 2> /dev/null' # open a nautilus window in current dir
     alias nt="/c/pdev/apps/Total\ CMA\ Pack/TOTALCMD.EXE /L=\"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\" /I='c:\pdev\apps\Total CMA Pack\cfg\Total CMA Pack.ini' &"
