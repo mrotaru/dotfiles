@@ -80,11 +80,6 @@ alias vdup="vagrant destroy -f && vagrant up --provision"
 #-----------------------------------------------------------------
 alias gobj="find .git/objects/ | egrep -o '/[0-9a-f]{2}/[0-9a-f]{38}' | tr -d '/'"
 alias got='gobj | while read git_obj_id; do toex="git cat-file -t $git_obj_id"; echo $git_obj_id `$toex`; done'
-alias gf='git-forest'
-alias gfl='git-forest | less -RS'
-alias gfa='git-forest -a'
-alias gfal='git-forest -a | less -RS'
-alias gfs='git-forest --sha'
 alias gs='git status'  # by default, gs is associated to 'ghost script'
 alias ga='git add'
 alias gc='git commit'
@@ -107,6 +102,15 @@ alias gba='git branch -a'
 alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+# git-forest
+if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
+    GIT_FOREST_PATH="/c/pdev/bin/git-forest"
+fi
+alias   gf="$GIT_FOREST_PATH"
+alias  gfl="$GIT_FOREST_PATH | less -RS"
+alias  gfa="$GIT_FOREST_PATH -a"
+alias gfal="$GIT_FOREST_PATH -a | less -RS"
+alias  gfs="$GIT_FOREST_PATH --sha"
 # <<
 
 #-----------------------------------------------------------------
