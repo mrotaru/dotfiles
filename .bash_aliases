@@ -106,7 +106,7 @@ alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen
 if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     GIT_FOREST_PATH="/c/pdev/bin/git-forest"
 fi
-alias   gf="$GIT_FOREST_PATH"
+alias   gf="$GIT_FOREST_PATH -n 12"
 alias  gfl="$GIT_FOREST_PATH | less -RS"
 alias  gfa="$GIT_FOREST_PATH -a"
 alias gfal="$GIT_FOREST_PATH -a | less -RS"
