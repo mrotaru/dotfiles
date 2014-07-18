@@ -58,10 +58,13 @@ alias lsa='ls -A'       # list all files ( including hidden )
 alias l='ls -Ct'        # columns; sort by size 
 alias llr='ls -lAgGht --time-style=+"%H:%M"'
 alias lla='ls -lAgGht --time-style=+"%d-%b-%y"'
-# sort by modified time, human-readable, don't wrap
-# Windows has no tput, so these won't work
-#alias ll='(tput rmam; ls -lgGht --time-style=+"%d-%b-%y"; tput smam)'
-#alias lln='(tput rmam; ls -lgGh --time-style=+"%d-%b-%y"; tput smam)'
+
+# Windows has no tput
+if [[ "$OS" == 'Linux' ]]; then 
+    # sort by modified time, human-readable, don't wrap
+    alias ll='(tput rmam; ls -lgGht --time-style=+"%d-%b-%y"; tput smam)'
+    alias lln='(tput rmam; ls -lgGh --time-style=+"%d-%b-%y"; tput smam)'
+fi
 
 #-----------------------------------------------------------------
 # vagrant
