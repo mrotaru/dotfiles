@@ -36,8 +36,6 @@ alias nicepath="echo \$PATH | tr ':' '\n'"
 alias ..="cd .."        # go to parent dir
 alias ...="cd ../.."    # go to grandparent dir
 alias -- -="cd -"       # go to previous dir
-alias cdh='cd ~'        # go to home dir
-alias cdp='cd ~/Projects'
 if [[ "$OS" = MINGW* ]]
 then
     alias nav='explorer . 2> /dev/null' # open a nautilus window in current dir
