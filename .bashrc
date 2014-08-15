@@ -1,4 +1,4 @@
-[[ $- == *i* ]] && source .bash_interactive
+[[ $- == *i* ]] && source ~/.bash_interactive
 
 # unlimited entries in history
 export HISTFILESIZE=
