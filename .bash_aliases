@@ -103,6 +103,7 @@ alias gba='git branch -a'
 alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gh='find .git/hooks -type f ! -name "*.sample"'
 # git-forest
 if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     GIT_FOREST_PATH="/c/pdev/bin/git-forest"
