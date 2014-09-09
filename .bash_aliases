@@ -70,6 +70,7 @@ fi
 alias vu="vagrant up"
 alias vd="vagrant halt && vagrant destroy"
 alias vdu="vagrant halt && vagrant destroy -f && vagrant up"
+alias vh="vagrant halt"
 alias vs="vagrant status"
 alias vss="vagrant ssh"
 alias vsu="vagrant suspend"
