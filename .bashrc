@@ -25,3 +25,6 @@ stophistory () {
 
 # add user's bin/ to $PATH
 PATH="$HOME/bin:$PATH"
+
+# load local bashrc, if existing
+[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
