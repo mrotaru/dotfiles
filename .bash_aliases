@@ -108,20 +108,21 @@ alias gh='find .git/hooks -type f ! -name "*.sample"'
 # git-forest
 if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     GIT_FOREST_PATH="/c/pdev/bin/git-forest"
+    alias   gf="$GIT_FOREST_PATH -n 12"
+    alias  gfl="$GIT_FOREST_PATH | less -RS"
+    alias  gfa="$GIT_FOREST_PATH -a"
+    alias gfal="$GIT_FOREST_PATH -a | less -RS"
+    alias  gfs="$GIT_FOREST_PATH --sha"
 fi
-alias   gf="$GIT_FOREST_PATH -n 12"
-alias  gfl="$GIT_FOREST_PATH | less -RS"
-alias  gfa="$GIT_FOREST_PATH -a"
-alias gfal="$GIT_FOREST_PATH -a | less -RS"
-alias  gfs="$GIT_FOREST_PATH --sha"
 # <<
 
 #-----------------------------------------------------------------
 # Node
 #-----------------------------------------------------------------
-alias mocha='./node_modules/mocha/bin/mocha'
-alias clientjade='./node_modules/clientjade/bin/clientjade'
-alias sequelize='./node_modules/sequelize/bin/sequelize'
+if [[ "$OS" = MINGW* ]]; then
+    alias clientjade='./node_modules/clientjade/bin/clientjade'
+    alias sequelize='./node_modules/sequelize/bin/sequelize'
+fi
 
 #-----------------------------------------------------------------
 # Tools
