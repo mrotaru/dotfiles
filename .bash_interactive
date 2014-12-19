@@ -11,6 +11,9 @@ if [ -d "/etc/bash_completion.d" ] && [ $OSTYPE = "msys" ]; then
     done
 fi
 
+# AWS completion
+type aws >/dev/null 2>&1 && { complete -C aws_completer aws; }
+
 # custom prompt
 if test -z "$WINELOADERNOEXEC"
 then
