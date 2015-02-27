@@ -42,14 +42,6 @@ restore_backup()
     fi
 }
 
-
-# for the command prompt
-# this funtion is run each time the user entered a simple command
-simple_command_entered()
-{
-    echo 'you just enterd a simple command !'
-}
-
 # creates a file containing a list of all installed packages,
 # sorted by date
 list_installed_packages()
@@ -62,20 +54,6 @@ list_installed_packages()
         -e "s/^0\t/Removed \t/" \
         -e "s/^[0-9]*\t/Installed\t/"\
         >> PkgLog
-}
-
-# Grep xampp config files.
-# Treat argument as a regular expression
-grep_xampp_cfg()
-{
-    grep --color='auto'\
-            --line-number\
-            --with-filename\
-            --ignore-case\
-            -B 3 -A 1 -e "$1"\
-            /d/pdev/xampp/php/php.ini\
-            /d/pdev/xampp/apache/conf/httpd.conf\
-            /d/pdev/xampp/mysql/bin/my.ini
 }
 
 # from: http://stackoverflow.com/a/4767462
