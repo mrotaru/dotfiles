@@ -80,6 +80,7 @@ alias vdup="vagrant destroy -f && vagrant up --provision"
 #-----------------------------------------------------------------
 # git
 #-----------------------------------------------------------------
+command -v hub >/dev/null 2>&1 && { alias git=hub; }
 alias gobj="find .git/objects/ | egrep -o '/[0-9a-f]{2}/[0-9a-f]{38}' | tr -d '/'"
 alias got='gobj | while read git_obj_id; do toex="git cat-file -t $git_obj_id"; echo $git_obj_id `$toex`; done'
 alias gs='git status'  # by default, gs is associated to 'ghost script'
