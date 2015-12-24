@@ -84,6 +84,7 @@ command -v hub >/dev/null 2>&1 && { alias git=hub; }
 alias gobj="find .git/objects/ | egrep -o '/[0-9a-f]{2}/[0-9a-f]{38}' | tr -d '/'"
 alias got='gobj | while read git_obj_id; do toex="git cat-file -t $git_obj_id"; echo $git_obj_id `$toex`; done'
 alias gs='git status'  # by default, gs is associated to 'ghost script'
+alias g='git status'
 alias ga='git add'
 alias gc='git commit'
 alias gb='git branch'
@@ -101,11 +102,13 @@ alias gd='git diff'
 #alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gb='git branch'
+alias gbd='git branch -d'
 alias gba='git branch -a'
 alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gh='find .git/hooks -type f ! -name "*.sample"'
+alias scrum="git log --since=yesterday --format=oneline --abbrev-commit --author=mihai --no-merges"
 # git-forest
 if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     GIT_FOREST_PATH="/c/pdev/bin/git-forest"
@@ -129,3 +132,7 @@ fi
 # Tools
 #-----------------------------------------------------------------
 [ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
+alias p="pa"
+alias t="pa todo"
+alias d="pa ducks"
+alias http="winpty http"
