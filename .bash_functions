@@ -67,3 +67,9 @@ function findAsciiFiles {
     # usage: findAsciiFiles DIRECTORY
     find "$1" -type f -exec file {} \; | grep text | cut -d ':' -f1
 }	
+
+function openTotalCommanderInCurrentDir {
+    local tc_path="/c/pdev/totalcmd/totalcmd.exe"
+    local cwd=$(pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\:g')
+    $tc_path /L="\"$cwd\""
+}
