@@ -73,3 +73,7 @@ function openTotalCommanderInCurrentDir {
     local cwd=$(pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\:g')
     $tc_path /L="\"$cwd\""
 }
+
+function clone() {
+    git clone git@github.com:$1
+}
