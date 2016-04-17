@@ -1,4 +1,6 @@
-[ -d ~/dotfiles ] && { echo "~/dotfiles already exists, exiting..."; exit 1; }
+[ -d ~/dotfiles ] && { echo "~/dotfiles already exists, exiting."; exit 1; }
+
+command -v git >/dev/null 2>&1 || { echo >&2 "git not found in path, exiting."; exit 1; }
 
 git clone git@github.com:mrotaru/dotfiles.git ~/dotfiles
 
@@ -24,14 +26,16 @@ files=(
  )
 
 for file in "${!files[@]}"; do
+
     existing="$HOME/${files[file]}"
     new="$HOME/dotfiles/${files[file]}"
+
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
-        md5_existing=($(md5sum "$existing")) || { echo "failed md5 for \"$existing\", exiting..."; exit 1; }
-        md5_new=($(md5sum "$new")) || { echo "failed md5 for \"$new\", exiting..."; exit 1; }
+        md5_existing=($(md5sum "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_new=($(md5sum "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
 
-        # if different, create backup and remove existing file; then crete
+        # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then
             echo "\"$existing\" exists and is different from \"$new\","
             echo "copying to \"$backup_dir\"..."
@@ -44,8 +48,8 @@ for file in "${!files[@]}"; do
             echo "\"$existing\" exists but is the same as \"$new\" (md5: $md5_existing)"
         fi
     else
-        echo "not existing: $existing"
-        ln -s "$new" "$existing" || exit 1
+        echo "creating link to $new..."
+        ln -s "$new" "$existing" || { echo "failed to create link \"$new\", exiting."; exit 1; }
     fi
 done
 
