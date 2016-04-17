@@ -2,6 +2,10 @@
 
 git clone git@github.com:mrotaru/dotfiles.git ~/dotfiles
 
+echo ""
+echo "Dotfiles"
+echo "-------"
+
 backup_dir="$HOME/dotfiles-backup-$(date +"%Y-%m-%dT%k-%M")"
 
 files=(
@@ -19,20 +23,15 @@ files=(
  .pdbrc
  )
 
-echo ""
-echo "Dotfiles"
-echo "-------"
-
-# Go over each file in the $files array and see if it exists in the current
-# user's home directory. If it does, check to see if it's different from the
-# one in the repository. If it is, create a backup, and remove it - so that we
-# can create a link in it's place, to the respective file in the repository.
 for file in "${!files[@]}"; do
     existing="$HOME/${files[file]}"
     new="$HOME/dotfiles/${files[file]}"
     if [ -f "$existing" -o -h "$existing" ]; then
+        # compute md5 checksums
         md5_existing=($(md5sum "$existing")) || { echo "failed md5 for \"$existing\", exiting..."; exit 1; }
         md5_new=($(md5sum "$new")) || { echo "failed md5 for \"$new\", exiting..."; exit 1; }
+
+        # if different, create backup and remove existing file; then crete
         if [ "$md5_existing" != "$md5_new" ]; then
             echo "\"$existing\" exists and is different from \"$new\","
             echo "copying to \"$backup_dir\"..."
