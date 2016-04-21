@@ -121,18 +121,9 @@ fi
 # <<
 
 #-----------------------------------------------------------------
-# Node
-#-----------------------------------------------------------------
-if [[ "$OS" = MINGW* ]]; then
-    alias clientjade='./node_modules/clientjade/bin/clientjade'
-    alias sequelize='./node_modules/sequelize/bin/sequelize'
-fi
-
-#-----------------------------------------------------------------
 # Tools
 #-----------------------------------------------------------------
-[ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
-alias p="pa"
-alias t="pa todo"
-alias d="pa ducks"
-alias http="winpty http"
+if [[ "$OS" = MINGW* ]]; then
+    alias http="winpty http"
+    [ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
+fi
