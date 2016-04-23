@@ -4,18 +4,28 @@
 
 OS=`uname`
 
-#-----------------------------------------------------------------
-# first, some general aliases that didn't fit anywhere else
-#-----------------------------------------------------------------
+#------------------------
+# Frequently edited files
+#------------------------
 alias eb='vim ~/.bashrc'
 alias sb='source ~/.bashrc'
 alias ea='vim ~/.bash_aliases'
 alias sa="source ~/.bash_aliases"
 alias ef='vim ~/.bash_functions'
+alias ddj='vim ~/notes/diary/$(date -I).md'
+alias ddk='vim ~/notes/todos/$(date "+%Y-W%V").md'
+
+#-----------
+# Disk usage
+#-----------
 alias duhs='du -hs'
 alias dfh='df -h'
 alias duh='find . -maxdepth 1 -exec du -hs {} \;'
 alias dus="du -k * | sort -nr | cut -f2 | xargs -d '\n' du -sh"
+
+#--------
+# General
+#--------
 alias e='vim'
 alias cls='clear'                    # a bit redunant; use CTRL+L
 alias mex='sudo chmod +x'            # make executable
@@ -25,27 +35,27 @@ alias md='mkdir'
 alias md='mkdir_cd'
 alias bak='backup_current_dir'
 alias rbak='restore_backup'
-alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
 alias ec="cat /dev/clipboard | bash"
 alias vim="vi"
 alias nicepath="echo \$PATH | tr ':' '\n'"
 
 #-----------------------------------------------------------------
-# navigation
+# Navigation
 #-----------------------------------------------------------------
 alias ..="cd .."        # go to parent dir
 alias ...="cd ../.."    # go to grandparent dir
 alias -- -="cd -"       # go to previous dir
 if [[ "$OS" = MINGW* ]]
 then
-    alias nav='explorer . 2> /dev/null' # open a nautilus window in current dir
+    #alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
+    alias nav='explorer . 2> /dev/null'
     alias tc='openTotalCommanderInCurrentDir'
 else
-    alias nav='nautilus ./ 2> /dev/null' # open a nautilus window in current dir
+    alias nav='nautilus ./ 2> /dev/null'
 fi
 
 #-----------------------------------------------------------------
-# the 'ls' zoo
+# The 'ls' zoo
 #-----------------------------------------------------------------
 alias l.='ls -d .*'     # list hidden files/folders
 alias la='ls -a'     	# list files, including hidden files/folders
@@ -65,7 +75,7 @@ if [[ "$OS" == 'Linux' ]]; then
 fi
 
 #-----------------------------------------------------------------
-# vagrant
+# Vagrant
 #-----------------------------------------------------------------
 alias vu="vagrant up"
 alias vd="vagrant halt && vagrant destroy"
@@ -92,14 +102,11 @@ alias gd='git diff'
 alias gdp='git diff HEAD^1' # diff from previous commit
 alias gcm='git commit -a -v -m'
 alias co='git checkout'
-# from http://meitsinblawg.wordpress.com/2010/04/20/my-setup-for-git-on-command-line/
 alias gdc='git diff --cached'
 alias gst='git status -s' # git >1.7.0
-#alias glr='git pull --rebase'
-#alias gl='git pull'
-#alias gp='git push'
+alias pull='git pull'
+alias push='git push'
 alias gd='git diff'
-#alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gb='git branch'
 alias gbd='git branch -d'
@@ -118,7 +125,6 @@ if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     alias gfal="$GIT_FOREST_PATH -a | less -RS"
     alias  gfs="$GIT_FOREST_PATH --sha"
 fi
-# <<
 
 #-----------------------------------------------------------------
 # Tools
@@ -127,3 +133,8 @@ if [[ "$OS" = MINGW* ]]; then
     alias http="winpty http"
     [ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
 fi
+
+#-----------
+# References
+#-----------
+# http://meitsinblawg.wordpress.com/2010/04/20/my-setup-for-git-on-command-line/
