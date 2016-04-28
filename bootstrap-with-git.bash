@@ -2,7 +2,12 @@
 
 command -v git >/dev/null 2>&1 || { echo >&2 "git not found in path, exiting."; exit 1; }
 
-git clone git@github.com:mrotaru/dotfiles.git ~/dotfiles
+REPO="mrotaru/dotfiles.git"
+echo "Cloning $REPO..."
+git clone git@github.com:$REPO ~/dotfiles >/dev/null 2>&1  || {
+  echo "Could not clone via SSH, trying HTTPS..."
+  git clone https://github.com/mrotaru/dotfiles.git >/dev/null 2>&1 || { echo "Failed to clone, exiting."; exit 1; }
+}
 
 echo ""
 echo "Dotfiles"
