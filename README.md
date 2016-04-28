@@ -1,10 +1,14 @@
-dotfiles
-=======
+# dotfiles
 
-All my dotfiles, except for Vim stuff which is not included.
+Dotfiles, excluding `vim` stuff
+
+No git:
 
 	curl http://goo.gl/P6uuq -L -o - | bash
+	
+With git:
+
+	curl https://goo.gl/OdBmTd -L -o - | bash
 
 - uses either `curl` or `wget` do download rc files
-- `git` not required to install
 - automatically creates backups for replaced files
