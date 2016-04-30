@@ -3,16 +3,22 @@
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
 # completion
-if [ -d "/etc/bash_completion.d" ] && [ $OSTYPE = "msys" ]; then
-    for comp_file in /etc/bash_completion.d/*
-    do
-        echo "loading completion: $comp_file"
-        . "$comp_file"
-    done
-fi
+if [ $OSTYPE = "msys" ]; then
+     if [ -d "/etc/bash_completion.d" ]; then
+        for comp_file in /etc/bash_completion.d/*
+        do
+            echo "loading completion: $comp_file"
+            . "$comp_file"
+        done
 
-# AWS completion
-type aws >/dev/null 2>&1 && { complete -C aws_completer aws; }
+        # AWS completion
+        type aws >/dev/null 2>&1 && { complete -C aws_completer aws; }
+    fi
+else
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        . /etc/bash_completion
+    fi
+fi
 
 # custom prompt
 if test -z "$WINELOADERNOEXEC"
