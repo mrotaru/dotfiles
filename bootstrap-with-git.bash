@@ -33,6 +33,9 @@ files=(
  .pdbrc
  )
 
+_BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
+[ -f "$_BASH_USER_SETTINGS" ] && files+=("$_BASH_USER_SETTINGS")
+
 for file in "${!files[@]}"; do
 
     existing="$HOME/${files[file]}"

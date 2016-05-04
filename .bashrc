@@ -28,3 +28,7 @@ PATH="$HOME/bin:$PATH"
 
 # load local bashrc, if existing
 [ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
+
+# user-specific settings
+_BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
+[ -f "$_BASH_USER_SETTINGS" ] && source "$_BASH_USER_SETTINGS"
