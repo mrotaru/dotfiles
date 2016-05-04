@@ -1,13 +1,16 @@
-[ -d ~/dotfiles ] && { echo "~/dotfiles already exists, exiting."; exit 1; }
-
 command -v git >/dev/null 2>&1 || { echo >&2 "git not found in path, exiting."; exit 1; }
 
-REPO="mrotaru/dotfiles.git"
-echo "Cloning $REPO..."
-git clone git@github.com:$REPO ~/dotfiles >/dev/null 2>&1  || {
-  echo "Could not clone via SSH, trying HTTPS..."
-  git clone https://github.com/mrotaru/dotfiles.git >/dev/null 2>&1 || { echo "Failed to clone, exiting."; exit 1; }
-}
+if [ -d ~/dotfiles ]; then 
+    echo "~/dotfiles already exists, trying to git pull...";
+    cd ~/dotfiles && git pull || exit 1;
+else
+    REPO="mrotaru/dotfiles.git"
+    echo "Cloning $REPO..."
+    git clone git@github.com:$REPO ~/dotfiles >/dev/null 2>&1  || {
+      echo "Could not clone via SSH, trying HTTPS..."
+      git clone https://github.com/mrotaru/dotfiles.git >/dev/null 2>&1 || { echo "Failed to clone, exiting."; exit 1; }
+    }
+fi
 
 echo ""
 echo "Dotfiles"
