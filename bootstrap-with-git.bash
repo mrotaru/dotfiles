@@ -30,7 +30,7 @@ files=(
  .gitconfig
  .tmux.conf
  .vimperatorrc
- .pdbrc
+ .ackrc
  )
 
 _BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
@@ -43,8 +43,8 @@ for file in "${!files[@]}"; do
 
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
-        md5_existing=($(md5sum "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
-        md5_new=($(md5sum "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_existing=($(md5 "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_new=($(md5 "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
 
         # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then
