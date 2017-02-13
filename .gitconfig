@@ -1,11 +1,16 @@
 [user]
-	email = mihai.rotaru@gmx.com
+	email = mihai.rotaru@miceanddice.com
 	name = Mihai Rotaru
 [push]
 	default = matching
+	followTags = true
 [alias]
 	ignore = !git update-index --assume-unchanged
 	unignore = !git update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep ^[a-z]
 [hub]
 	protocol = ssh
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
