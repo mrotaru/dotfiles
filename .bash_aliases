@@ -3,6 +3,7 @@
 #-----------------------------------------------------------------
 
 OS=`uname`
+: ${NOTES_DIR:=~/notes}
 
 #------------------------
 # Frequently edited files
@@ -12,8 +13,8 @@ alias sb='source ~/.bashrc'
 alias ea='vim ~/.bash_aliases'
 alias sa="source ~/.bash_aliases"
 alias ef='vim ~/.bash_functions'
-alias ddj='vim ~/notes/diary/$(date -I).md'
-alias ddk='vim ~/notes/todos/$(date "+%Y-W%V").md'
+alias ddj="vim $NOTES_DIR/diary/$(date -I).md"
+alias ddk="vim $NOTES_DIR/todos/$(date "+%Y-W%V").md"
 
 #-----------
 # Disk usage
