@@ -1,9 +1,4 @@
-#-----------------------------------------------------------------
-# this file is sourced by the shell at startup ( see .bashrc )
-#-----------------------------------------------------------------
-
 OS=`uname`
-: ${NOTES_DIR:=~/notes}
 
 #------------------------
 # Frequently edited files
@@ -13,8 +8,8 @@ alias sb='source ~/.bashrc'
 alias ea='vim ~/.bash_aliases'
 alias sa="source ~/.bash_aliases"
 alias ef='vim ~/.bash_functions'
-alias ddj="vim $NOTES_DIR/diary/$(date -I).md"
-alias ddk="vim $NOTES_DIR/todos/$(date "+%Y-W%V").md"
+alias ddj='vim $NOTES/diary/$(date -I).md'
+alias ddk='vim $NOTES/todos/$(date "+%Y-W%V").md'
 
 #-----------
 # Disk usage
@@ -116,7 +111,9 @@ alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gh='find .git/hooks -type f ! -name "*.sample"'
+alias gdev='git checkout developmnet'
 alias scrum="git log --since=yesterday --format=oneline --abbrev-commit --author=mihai --no-merges"
+alias gp="git push origin HEAD" # pushes current branch to origin, creating it if it does not exist
 # git-forest
 if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
     GIT_FOREST_PATH="/c/pdev/bin/git-forest"
@@ -134,6 +131,11 @@ if [[ "$OS" = MINGW* ]]; then
     alias http="winpty http"
     [ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
 fi
+
+[ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases
+
+# vim on mac
+command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'
 
 #-----------
 # References
