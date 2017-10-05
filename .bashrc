@@ -34,9 +34,3 @@ _BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
 [ -f "$_BASH_USER_SETTINGS" ] && source "$_BASH_USER_SETTINGS"
 
 export EDITOR=vim
-
-MDS="10.255.160.224"
-#SEO_CI_IP="10.225.160.97"
-SEO_CI_IP="seo-ci.cloud.platforms.gamesys.corp"
-MONOPOLY_DB_IP="monopoly-db.cloud.platforms.gamesys.corp"
-L3="http://localhost:3000"
