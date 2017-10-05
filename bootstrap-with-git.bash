@@ -36,15 +36,18 @@ files=(
 _BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
 [ -f "$_BASH_USER_SETTINGS" ] && files+=("$_BASH_USER_SETTINGS")
 
-for file in "${!files[@]}"; do
+command -v md5 > /dev/null 2>&1; && checksum_command='md5'
+[ -z "$checksum_command" ] && command -v md5sum > /dev/null 2>&1; && checksum_command='md5sum'
+[ -z "$checksum_command" ] && { echo "No checksum command; exiting"; exit 1; }
 
+for file in "${!files[@]}"; do
     existing="$HOME/${files[file]}"
     new="$HOME/dotfiles/${files[file]}"
 
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
-        md5_existing=($(md5 "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
-        md5_new=($(md5 "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_existing=($($checksum_command "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_new=($($checsum_command "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
 
         # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then
