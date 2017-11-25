@@ -1,36 +1,63 @@
-[[ $- == *i* ]] && source ~/.bash_interactive
+# ~/.bashrc: executed by bash(1) for non-login shells.
 
-# unlimited entries in history
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# history
 export HISTFILESIZE=
 export HISTSIZE=
-
-# timestam history entries
 export HISTTIMEFORMAT="%d-%m-%Y %T "
-
-# don't add duplicate entries to history
 export HISTCONTROL=ignoreboth:erasedups
-
-# Change the file location because certain bash sessions truncate .bash_history file upon close.
-# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
-
-# Force prompt to write history after every command.
-# http://superuser.com/questions/20900/bash-history-loss
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 shopt -s histappend
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 stophistory () {
   PROMPT_COMMAND="bash_prompt_command"
   echo 'History recording stopped.'
 }
 
-# add user's bin/ to $PATH
-PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
-# load local bashrc, if existing
 [ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
 
-# user-specific settings
-_BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
-[ -f "$_BASH_USER_SETTINGS" ] && source "$_BASH_USER_SETTINGS"
-
 export EDITOR=vim
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# enable color support of ls
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
