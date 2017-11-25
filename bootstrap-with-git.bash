@@ -33,8 +33,8 @@ files=(
 _BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
 [ -f "$_BASH_USER_SETTINGS" ] && files+=("$_BASH_USER_SETTINGS")
 
-command -v md5 > /dev/null 2>&1; && checksum_command='md5'
-[ -z "$checksum_command" ] && command -v md5sum > /dev/null 2>&1; && checksum_command='md5sum'
+(command -v md5 > /dev/null 2>&1;) && checksum_command='md5'
+[ -z "$checksum_command" ] && (command -v md5sum > /dev/null 2>&1;) && checksum_command='md5sum'
 [ -z "$checksum_command" ] && { echo "No checksum command; exiting"; exit 1; }
 
 for file in "${!files[@]}"; do
