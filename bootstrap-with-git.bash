@@ -21,15 +21,12 @@ backup_dir="$HOME/dotfiles-backup-$(date +"%Y-%m-%dT%k-%M")"
 files=(
  .bash_profile
  .bashrc
- .bash_interactive
  .bash_aliases
- .bash_functions
  .inputrc
  .profile
  .screenrc
  .gitconfig
  .tmux.conf
- .vimperatorrc
  .ackrc
  )
 
