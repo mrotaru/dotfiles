@@ -61,4 +61,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
+[ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
+
 source ~/dotfiles/git-prompt.sh

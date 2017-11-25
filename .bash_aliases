@@ -27,12 +27,6 @@ alias cls='clear'                    # a bit redunant; use CTRL+L
 alias mex='sudo chmod +x'            # make executable
 alias rmd='rm -rf'                   # remive folder, recursivelly
 alias md='mkdir'
-# the following aliases are for functions defined in ~/.bash_functions
-alias md='mkdir_cd'
-alias bak='backup_current_dir'
-alias rbak='restore_backup'
-alias ec="cat /dev/clipboard | bash"
-alias vim="vi"
 alias nicepath="echo \$PATH | tr ':' '\n'"
 
 #-----------------------------------------------------------------
@@ -45,7 +39,6 @@ if [[ "$OS" = MINGW* ]]
 then
     #alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
     alias nav='explorer . 2> /dev/null'
-    alias tc='openTotalCommanderInCurrentDir'
 else
     alias nav='nautilus ./ 2> /dev/null'
 fi
@@ -53,9 +46,11 @@ fi
 #-----------------------------------------------------------------
 # The 'ls' zoo
 #-----------------------------------------------------------------
+alias l='ls -CF'
+alias ls='ls --color=auto' # assuming colour support
 alias l.='ls -d .*'     # list hidden files/folders
-alias la='ls -a'     	# list files, including hidden files/folders
-alias ll='ls -lgGht'    # sort by modified time, human-readable 
+alias la='ls -A'     	# list files, including hidden files/folders
+alias ll='ls -AlgGht'   # sort by modified time, human-readable 
 alias llo='ls -lht'     # like ll, but show owner/group info
 alias lld='ls -ludh */' # list directories
 alias lsa='ls -A'       # list all files ( including hidden )
@@ -87,9 +82,7 @@ alias vdup="vagrant destroy -f && vagrant up --provision"
 # git
 #-----------------------------------------------------------------
 command -v hub >/dev/null 2>&1 && { alias git=hub; }
-alias gobj="find .git/objects/ | egrep -o '/[0-9a-f]{2}/[0-9a-f]{38}' | tr -d '/'"
-alias got='gobj | while read git_obj_id; do toex="git cat-file -t $git_obj_id"; echo $git_obj_id `$toex`; done'
-alias gs='git status'  # by default, gs is associated to 'ghost script'
+alias gs='git status'
 alias g='git status'
 alias ga='git add'
 alias gc='git commit'
@@ -133,6 +126,10 @@ if [[ "$OS" = MINGW* ]]; then
 fi
 
 [ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # vim on mac
 command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'
