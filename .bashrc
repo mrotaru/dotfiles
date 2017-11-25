@@ -61,3 +61,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
+source ~/dotfiles/git-prompt.sh
