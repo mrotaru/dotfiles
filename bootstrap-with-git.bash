@@ -1,3 +1,5 @@
+#!/bin/bash
+
 command -v git >/dev/null 2>&1 || { echo >&2 "git not found in path, exiting."; exit 1; }
 
 if [ -d ~/dotfiles ]; then 
@@ -30,12 +32,7 @@ files=(
  .ackrc
  )
 
-_BASH_USER_SETTINGS="$HOME/dotfiles/.bash_user_settings_$USER"
-[ -f "$_BASH_USER_SETTINGS" ] && files+=("$_BASH_USER_SETTINGS")
-
-(command -v md5 > /dev/null 2>&1;) && checksum_command='md5'
-[ -z "$checksum_command" ] && (command -v md5sum > /dev/null 2>&1;) && checksum_command='md5sum'
-[ -z "$checksum_command" ] && { echo "No checksum command; exiting"; exit 1; }
+(command -v md5sum > /dev/null 2>&1;) || { echo "md5sum command not installed; exiting"; exit 1; }
 
 for file in "${!files[@]}"; do
     existing="$HOME/${files[file]}"
@@ -43,8 +40,8 @@ for file in "${!files[@]}"; do
 
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
-        md5_existing=($($checksum_command "$existing")) || { echo "failed to compute md5, exiting."; exit 1; }
-        md5_new=($($checsum_command "$new")) || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_existing=$(md5sum $existing | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
+	md5_new=$(md5sum $new | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
 
         # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then
