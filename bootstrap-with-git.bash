@@ -61,6 +61,8 @@ for file in "${!files[@]}"; do
     fi
 done
 
+ln -s "$HOME/dotfiles/.i3" "$HOME/.3"
+
 echo "Cloning tmux-plugin-manager..."
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
