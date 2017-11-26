@@ -19,8 +19,6 @@ stophistory () {
   echo 'History recording stopped.'
 }
 
-export PATH="$HOME/bin:$PATH"
-
 [ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
 
 export EDITOR=vim
