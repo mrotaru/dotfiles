@@ -130,6 +130,7 @@ fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias t='todo.sh'
 
 # vim on mac
 command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'
