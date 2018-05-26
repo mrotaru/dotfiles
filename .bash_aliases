@@ -127,6 +127,9 @@ fi
 
 [ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases
 
+type rg > /dev/null && alias ack='rg'
+type rg > /dev/null && alias s='clear && rg'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
