@@ -64,7 +64,7 @@ fi
 
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
-type kubectl && source <(kubectl completion bash)
+type kubectl > /dev/null && source <(kubectl completion bash)
 
 source ~/dotfiles/git-prompt.sh
 
