@@ -10,7 +10,11 @@ set completion-query-items 50
 # off: default to a *nix style console
 set completion-ignore-case on
 
-# >> ram: from the Ubuntu .inputrc
+# Avoid pasted text being interpreted as commands (Enter, etc)
+# https://tiswww.case.edu/php/chet/readline/rluserman.html#SEC9
+# https://stackoverflow.com/a/50654284/447661
+set enable-bracketed-paste on
+
 # If you have this in your /etc/inputrc or ~/.inputrc, you will no longer
 # have to hit the <Tab> key twice to produce a list of all possible
 # completions.
@@ -31,10 +35,8 @@ $endif
 # this will make TAB cycle through available options
 "\t": menu-complete
 
-# << ram
-
 # none, visible or audible
-set bell-style audible
+set bell-style visible
 
 # disable/enable 8bit input
 set meta-flag on
@@ -69,5 +71,3 @@ $if mode=emacs
 		"\e[4~": end-of-line            # End Key
 	$endif
 $endif
-
-
