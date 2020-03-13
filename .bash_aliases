@@ -81,7 +81,10 @@ alias vdup="vagrant destroy -f && vagrant up --provision"
 #-----------------------------------------------------------------
 # git
 #-----------------------------------------------------------------
-command -v hub >/dev/null 2>&1 && { alias git=hub; }
+
+# hub - https://github.com/github/hub
+[ -x "$(command -v hub)" ] && { alias git=hub; }
+
 alias gs='git status'
 alias g='git status'
 alias ga='git add'
@@ -107,9 +110,13 @@ alias gh='find .git/hooks -type f ! -name "*.sample"'
 alias gdev='git checkout developmnet'
 alias scrum="git log --since=yesterday --format=oneline --abbrev-commit --author=mihai --no-merges"
 alias gp="git push origin HEAD" # pushes current branch to origin, creating it if it does not exist
-# git-forest
-if [[ "$OS" = MINGW* ]] && [[ -f "/c/pdev/bin/git-forest" ]]; then
-    GIT_FOREST_PATH="/c/pdev/bin/git-forest"
+
+# git-forest or git-foresta
+GIT_FOREST_PATH=""
+[ -x "$(command -v git-forest)" ] && GIT_FOREST_PATH="$(command -v git-forest)"
+[ -x "$(command -v git-foresta)" ] && GIT_FOREST_PATH="$(command -v git-foresta)"
+[ -f "~/bin/git-foresta" ] && GIT_FOREST_PATH="~/bin/git-foresta"
+if [ -n "$GIT_FOREST_PATH" ]; then
     alias   gf="$GIT_FOREST_PATH -n 12"
     alias  gfl="$GIT_FOREST_PATH | less -RS"
     alias  gfa="$GIT_FOREST_PATH -a"
@@ -125,10 +132,10 @@ if [[ "$OS" = MINGW* ]]; then
     [ -f "/c/pdev/bin/ack" ] && alias ack='perl /c/pdev/bin/ack'
 fi
 
-[ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases
-
-type rg > /dev/null && alias ack='rg'
-type rg > /dev/null && alias s='clear && rg'
+if [ -x "$(command -v rg)" ]; then
+    alias ack='rg'
+    alias s='clear && rg'
+fi
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -138,7 +145,4 @@ alias t='todo.sh'
 # vim on mac
 command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'
 
-#-----------
-# References
-#-----------
-# http://meitsinblawg.wordpress.com/2010/04/20/my-setup-for-git-on-command-line/
+[ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases

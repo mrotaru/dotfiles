@@ -19,9 +19,9 @@ stophistory () {
   echo 'History recording stopped.'
 }
 
-[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
-
-export EDITOR=vim
+VIM="$(command -v vim)"
+[ -x ~/scoop/shims/gvim ] && VIM="~/scoop/shims/gvim"
+export EDITOR=$VIM
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
@@ -64,11 +64,14 @@ fi
 
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 
-type kubectl > /dev/null && source <(kubectl completion bash)
+[ -x "$(command -v kubectl)" ] && source <(kubectl completion bash)
 
 source ~/dotfiles/git-prompt.sh
 
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
