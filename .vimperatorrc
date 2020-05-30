@@ -1,5 +1,0 @@
-noremap j 5j
-noremap k 5k
-
-noremap <BS> :back<CR>
-noremap ,n :nohlsearch<CR>

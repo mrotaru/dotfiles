@@ -41,7 +41,7 @@ for file in "${!files[@]}"; do
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
         md5_existing=$(md5sum $existing | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
-	md5_new=$(md5sum $new | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
+	    md5_new=$(md5sum $new | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
 
         # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then
