@@ -46,7 +46,7 @@ This function should only modify configuration layer settings."
      ;; lsp
      ;; markdown
      multiple-cursors
-     ;; org
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -217,8 +217,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+   dotspacemacs-default-font '("Delicious"
+                               :size 24
                                :weight normal
                                :width normal)
 
@@ -491,7 +491,40 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C . t)))
+  (defun my-org-confirm-babel-evaluate (lang body)
+    (not (member lang '("C++"))))
+  (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+  ;;(define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
+  ;;(evil-global-set-key 'normal (kbd "RET") 'org-ctrl-c-ctrl-c)))
+  ;;(evil-define-key 'normal 'org-mode (kbd "RET") 'org-ctrl-c-ctrl-c)
+  ;;(global-set-key (kbd "RET") 'org-ctrl-c-ctrl-c)
+  ;;(define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+  ;;(evil-define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
+  ;;(define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
+  (define-key evil-org-mode-map (kbd "<normal-state> RET") 'org-ctrl-c-ctrl-c)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain htmlize helm-org-rifle helm-org gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
