@@ -19,8 +19,12 @@ stophistory () {
   echo 'History recording stopped.'
 }
 
+[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
+
 VIM="$(command -v vim)"
+
 [ -x ~/scoop/shims/gvim ] && VIM="~/scoop/shims/gvim"
+
 export EDITOR=$VIM
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
@@ -61,6 +65,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+
+[ -x "$(command -v aws_completer)" ] && complete -C $(which aws_completer) aws
 
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
 

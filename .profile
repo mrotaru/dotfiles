@@ -1,9 +1,11 @@
 # ~/.profile: executed by the command interpreter for login shells.
 
 # set PATH so it includes user's private bin directories
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+if [ -d "$HOME/.npm-global/bin" ]; then
+    export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+fi
 
-setxkbmap us
+[ -x "$(command -v setxkbmap)" ] && setxkbmap us
 
 # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows 
 
