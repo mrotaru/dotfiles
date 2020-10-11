@@ -19,6 +19,39 @@
     "workbench.activityBar.visible": true,
     "breadcrumbs.enabled": false,
     "workbench.statusBar.visible": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [ "<leader>", "<leader>", "p" ],
+            "commands": [
+                "workbench.action.showCommands",
+            ]
+        },
+        {
+            "before": [ "Tab" ],
+            "commands": [
+                "editor.toggleFold",
+            ]
+        },
+        {
+            "before": [ "H" ],
+            "commands": [
+                "workbench.action.navigateBack",
+            ]
+        },
+        {
+            "before": [ "L" ],
+            "commands": [
+                "workbench.action.navigateForward",
+            ]
+        },
+        {
+            "before": [ "Enter" ],
+            "commands": [
+                "editor.action.revealDefinition",
+            ]
+        },
+    ],
+    "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
     "vim.leader": "<space>",
     "vim.handleKeys": {
