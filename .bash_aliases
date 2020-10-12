@@ -47,7 +47,7 @@ fi
 # The 'ls' zoo
 #-----------------------------------------------------------------
 alias l='ls -CF'
-alias ls='ls --color=auto' # assuming colour support
+#alias ls='ls --color=auto' # assuming colour support
 alias l.='ls -d .*'     # list hidden files/folders
 alias la='ls -A'     	# list files, including hidden files/folders
 alias ll='ls -AlgGht'   # sort by modified time, human-readable 
@@ -55,8 +55,8 @@ alias llo='ls -lht'     # like ll, but show owner/group info
 alias lld='ls -ludh */' # list directories
 alias lsa='ls -A'       # list all files ( including hidden )
 alias l='ls -Ct'        # columns; sort by size 
-alias llr='ls -lAgGht --time-style=+"%H:%M"'
-alias lla='ls -lAgGht --time-style=+"%d-%b-%y"'
+alias llr='ls -lAgGht'
+alias lla='ls -lAgGht'
 
 # Windows has no tput
 if [[ "$OS" == 'Linux' ]]; then 
