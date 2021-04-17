@@ -5,6 +5,11 @@ if [ -d "$HOME/.npm-global/bin" ]; then
     export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
 fi
 
+# Nim binaries
+if [ -d "$HOME/code/Nim/bin" ]; then
+    export PATH="$PATH:$HOME/code/Nim/bin"
+fi
+
 [ -x "$(command -v setxkbmap)" ] && setxkbmap us
 
 # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows 
