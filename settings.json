@@ -1,0 +1,61 @@
+{
+    "editor.minimap.enabled": false,
+    "terminal.integrated.shell.windows": "C:\\Users\\Mihai\\scoop\\apps\\git\\current\\bin\\bash.exe",
+    "window.zoomLevel": 0,
+    "todo-tree.tree.showScanModeButton": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.tabSize": 2,
+    "[typescript]": {},
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.snippetSuggestions": "top",
+    "window.menuBarVisibility": "toggle",
+    "workbench.activityBar.visible": true,
+    "breadcrumbs.enabled": false,
+    "workbench.statusBar.visible": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [ "<leader>", "<leader>", "p" ],
+            "commands": [
+                "workbench.action.showCommands",
+            ]
+        },
+        {
+            "before": [ "Tab" ],
+            "commands": [
+                "editor.toggleFold",
+            ]
+        },
+        {
+            "before": [ "H" ],
+            "commands": [
+                "workbench.action.navigateBack",
+            ]
+        },
+        {
+            "before": [ "L" ],
+            "commands": [
+                "workbench.action.navigateForward",
+            ]
+        },
+        {
+            "before": [ "Enter" ],
+            "commands": [
+                "editor.action.revealDefinition",
+            ]
+        },
+    ],
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    }
+}
