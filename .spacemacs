@@ -32,8 +32,10 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
-     markdown
+   '(markdown
+     html
+     org
+     rust
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -47,7 +49,7 @@ This function should only modify configuration layer settings."
      ;; lsp
      ;; markdown
      multiple-cursors
-     org
+     ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -64,10 +66,9 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages
-   '(
-     ob-rust
-     )
+   dotspacemacs-additional-packages '(ob-rust
+                                      nim-mode
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -222,7 +223,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Delicious"
-                               :size 24
+                               :size 21
                                :weight normal
                                :width normal)
 
@@ -480,6 +481,8 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq custom-file "~/.emacs.d/.cache/.custom-settings")
+  (load custom-file)
   )
 
 (defun dotspacemacs/user-load ()
@@ -495,42 +498,60 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((C . t))
-   'org-babel-load-languages '((rust . t)))
+  ;; do not ask for confirmation before executing code blocks
   (defun my-org-confirm-babel-evaluate (lang body)
-    (not (member lang '("C++")))
-    (not (member lang '("rust"))))
+    (not (member lang '("C++" "rust" "nim" "asm"))))
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-  ;;(define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
-  ;;(evil-global-set-key 'normal (kbd "RET") 'org-ctrl-c-ctrl-c)))
-  ;;(evil-define-key 'normal 'org-mode (kbd "RET") 'org-ctrl-c-ctrl-c)
-  ;;(global-set-key (kbd "RET") 'org-ctrl-c-ctrl-c)
-  ;;(define-key evil-insert-state-map (kbd "C-]") 'forward-char)
-  ;;(evil-define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
-  ;;(define-key evil-normal-state-map (kbd "RET") 'org-ctrl-c-ctrl-c)
+
+  ;; Enter evaluates current code block
   (define-key evil-org-mode-map (kbd "<normal-state> RET") 'org-ctrl-c-ctrl-c)
+
+  ;; execute nasm code blocks
+  (defun org-babel-execute:asm (body params)
+    "Execute a block of NASM code with org-babel."
+    (let ((in-file (org-babel-temp-file "tmp-asm-" ".asm")))
+      (with-temp-file in-file (insert body))
+      (org-babel-eval
+       (format "nasm -felf64 %1$s -o %1$s.o && ld -o %1$s.exe %1$s.o && chmod +x %1$s.exe && %1$s.exe" (org-babel-process-file-name in-file)) "")
+      ))
+
+  ;; load langs
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C . t) (rust . t) (asm . t)))
+
+  ;; execute code blocks just by pressing Enter
+  (with-eval-after-load 'evil-org
+    (define-key evil-org-mode-map (kbd "<normal-state> RET") 'org-ctrl-c-ctrl-c))
+
+  ;; open links with Tor (TODO: causes new broser each time - open tab isntead)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "tor-browser")
+
+  ;; execute nim code blocks (TODO: not working)
+  (defun org-babel-execute:nim (body params)
+    "Execute a block of Nim code with org-babel."
+    (let ((in-file (org-babel-temp-file "n" ".nim"))
+          (verbosity (or (cdr (assq :verbosity params)) 0)))
+      (with-temp-file in-file
+        (insert body))
+      (org-babel-eval
+       (format "nim compile --verbosity=%d --run %s" verbosity
+               (org-babel-process-file-name in-file))
+       "")))
+
+
+  (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
+
+  ;; TODO keywords and colours
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                (sequence "WAITING(w!)" "HOLD(h)" "|" "CANCELLED(c)"))))
+  (setq org-todo-keyword-faces
+        (quote (("NEXT" :foreground "blue" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (ob-rust toml-mode racer pos-tip helm-gtags ggtags flycheck-rust dap-mode posframe lsp-treemacs bui lsp-mode dash-functional counsel-gtags counsel swiper ivy cargo rust-mode vmd-mode mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji company org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain htmlize helm-org-rifle helm-org gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
