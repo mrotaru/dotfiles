@@ -32,7 +32,14 @@ files=(
  .ackrc
  )
 
-(command -v md5 > /dev/null 2>&1;) || { echo "md5 command not installed; exiting"; exit 1; }
+MD5=md5sum
+(command -v $MD5 > /dev/null 2>&1;) || MD5=md5
+(command -v $MD5 > /dev/null 2>&1;) || { echo "md5 command not installed; exiting"; exit 1; }
+
+function md5 () {
+  sum= eval($md5  $existing | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
+  echo $sum
+}
 
 for file in "${!files[@]}"; do
     existing="$HOME/${files[file]}"
@@ -40,8 +47,8 @@ for file in "${!files[@]}"; do
 
     if [ -f "$existing" -o -h "$existing" ]; then
         # compute md5 checksums
-        md5_existing=$(md5 $existing | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
-	    md5_new=$(md5 $new | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
+        md5_existing=$(md5 $existing)
+        md5_new=$(md5 $new)
 
         # if different, create backup and remove existing file; then create link
         if [ "$md5_existing" != "$md5_new" ]; then

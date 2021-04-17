@@ -1,4 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+OS=`uname`
 
 # If not running interactively, don't do anything
 case $- in
@@ -19,8 +20,6 @@ stophistory () {
   echo 'History recording stopped.'
 }
 
-[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
-
 VIM="$(command -v vim)"
 
 [ -x ~/scoop/shims/gvim ] && VIM="~/scoop/shims/gvim"
@@ -35,8 +34,10 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") \$ '
-#GIT_PS1_SHOWCOLORHINTS=true
+if [[ "$OS" != "Darwin" ]]; then
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") \$ '
+  GIT_PS1_SHOWCOLORHINTS=true
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
