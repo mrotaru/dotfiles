@@ -26,7 +26,7 @@ MD5=md5sum
 (command -v $MD5 > /dev/null 2>&1;) || MD5=md5
 (command -v $MD5 > /dev/null 2>&1;) || { echo "md5 command not installed; exiting"; exit 1; }
 function md5 () {
-  sum= eval($md5  $existing | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
+  sum= eval($MD5  $1 | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
   echo $sum
 }
 
@@ -91,12 +91,6 @@ else
   # backups folder - to be used for files which already exist
   backup_dir=$(date +"%Y-%m-%dT%k-%M")
 
-  # download a single file in the current directory
-  function get_file()
-  {
-      [ -f "$2" ] && { [ ! -d "$backup_dir" ] && mkdir "$backup_dir"; cp "$2" "$backup_dir"; }
-  }
-
   # link to raw files
   source_root="https://raw.githubusercontent.com/mrotaru/dotfiles/master"
 
@@ -108,9 +102,10 @@ else
   for file in "${!files[@]}"; do
       src="${source_root}/${files[file]}"
       dest="~/dotfiles/${files[file]}"
+      existing="~/${files[file]}"
       if [ -f "$dest" -o -h "$dest" ]; then
           # compute md5 checksums
-          md5_dest=$(md5 $dest)
+          md5_existing=$(md5 "$existing")
 
           # download new file to tmp dir
           tmp_file_path="$tmp_dir/${files[file]}"
@@ -122,23 +117,23 @@ else
           md5_new=$(md5 $tmp_file_path)
 
           # if different, create backup and remove dest file; then create link
-          if [ "$md5_dest" != "$md5_new" ]; then
-              echo "\"$dest\" exists and is different from \"$tmp_file_path\","
-              echo "copying $dest to \"$backup_dir\"..."
+          if [ "$md5_existing" != "$md5_new" ]; then
+              echo "\"$existing\" exists and is different from \"$tmp_file_path\","
+              echo "copying $existing to \"$backup_dir\"..."
               [ ! -d "$backup_dir" ] && mkdir "$backup_dir"
-              cp "$dest" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
-              echo "removing \"$dest\"..."
-              rm "$dest" || { echo "Could not remove $existing, exiting..."; exit 1; }
+              cp "$existing" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
+              echo "removing \"$existing\"..."
+              rm "$existing" || { echo "Could not remove $existing, exiting..."; exit 1; }
               echo "copying \"$tmp_file_path\" to \"$dest\"..."
               cp $tmp_file_path $dest
-              echo "linking ~/${files[file]} to \"$dest\"..."
-              ln -s "$new" "$dest"
+              echo "linking $existing to \"$dest\"..."
+              ln -s "$existing" "$dest"
           else
               echo "\"$dest\" exists but is the same as \"$new\" (md5: $md5_existing)"
           fi
       else
-          echo "creating link to $new..."
-          ln -s "$new" "$dest" || { echo "failed to create link \"$new\", exiting."; exit 1; }
+          echo "creating link to $dest..."
+          ln -s "$existing" "$dest" || { echo "failed to create link \"$existing\", exiting."; exit 1; }
       fi
   done
 
