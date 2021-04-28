@@ -32,9 +32,10 @@ alias nicepath="echo \$PATH | tr ':' '\n'"
 #-----------------------------------------------------------------
 # Navigation
 #-----------------------------------------------------------------
-alias ..="cd .."        # go to parent dir
-alias ...="cd ../.."    # go to grandparent dir
-alias -- -="cd -"       # go to previous dir
+alias ..="cd .."           # parent dir
+alias ...="cd ../.."       # grandparent dir
+alias -- -="cd -"          # previous dir
+alias cddo="cd ~/dotfiles" # dotfiles
 if [[ "$OS" = MINGW* ]]
 then
     #alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
@@ -150,4 +151,4 @@ alias t='todo.sh'
 # vim on mac
 command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'
 
-[ -f ~/.local-bash-aliases ] && source ~/.local-bash-aliases
+[ -f ~/.bash_aliases.local ] && source ~/.bash_aliases.local

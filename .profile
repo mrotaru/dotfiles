@@ -40,3 +40,6 @@ elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 fi
 
 unset env
+
+[ -f "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
+

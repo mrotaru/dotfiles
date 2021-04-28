@@ -82,4 +82,5 @@ if [ -d "$HOME/.nvm" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
+[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
+
