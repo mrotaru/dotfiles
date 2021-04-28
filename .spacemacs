@@ -32,10 +32,18 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(markdown
+   '(lsp
+     (javascript
+      :variables
+      javascript-backend 'lsp
+      javascript-fmt-tool 'prettier)
+     themes-megapack
+     markdown
      html
      org
-     rust
+     (rust
+      :variables
+      rust-backend 'lsp)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -49,7 +57,6 @@ This function should only modify configuration layer settings."
      ;; lsp
      ;; markdown
      multiple-cursors
-     ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -205,7 +212,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(kaolin-mono-dark
+                         spacemacs-dark
                          spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -498,12 +506,21 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+  ;; when opening a symlink, open "in-place" - don't go to the linked file
+  (setq vc-follow-symlinks t)
+
+  ;; indentation.
+  (setq
+   tab-width       2
+   standard-indent 2)
+
   ;; do not ask for confirmation before executing code blocks
   (defun my-org-confirm-babel-evaluate (lang body)
     (not (member lang '("C++" "rust" "nim" "asm"))))
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
-  ;; Enter evaluates current code block
+  ;; pressing "Enter" evaluates current code block
   (define-key evil-org-mode-map (kbd "<normal-state> RET") 'org-ctrl-c-ctrl-c)
 
   ;; execute nasm code blocks
@@ -514,10 +531,6 @@ before packages are loaded."
       (org-babel-eval
        (format "nasm -felf64 %1$s -o %1$s.o && ld -o %1$s.exe %1$s.o && chmod +x %1$s.exe && %1$s.exe" (org-babel-process-file-name in-file)) "")
       ))
-
-  ;; load langs
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((C . t) (rust . t) (asm . t)))
 
   ;; execute code blocks just by pressing Enter
   (with-eval-after-load 'evil-org
@@ -539,6 +552,9 @@ before packages are loaded."
                (org-babel-process-file-name in-file))
        "")))
 
+  ;; load langs
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((C . t) (rust . t) (asm . t)))
 
   (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
