@@ -26,15 +26,14 @@ MD5=md5sum
 (command -v $MD5 > /dev/null 2>&1;) || MD5=md5
 (command -v $MD5 > /dev/null 2>&1;) || { echo "md5 command not installed; exiting"; exit 1; }
 function md5 () {
-  sum= eval($MD5  $1 | awk '{print $1}') || { echo "failed to compute md5, exiting."; exit 1; }
-  echo $sum
+  echo $($MD5 $1 | awk '{print $1}')
 }
 
 # files that were overwritten will be copied to a backup folder
 backup_dir="$HOME/dotfiles-backup-$(date +"%Y-%m-%dT%k-%M")"
 
 # if git is installed, use git to clone the dotfiles repo
-if [ command -v git >/dev/null 2>&1 ]; then
+if [ -x "$(command -v git)" ]; then
   echo "git found..."
   if [ -d ~/dotfiles ]; then 
       echo "~/dotfiles already exists, trying to git pull...";
@@ -133,7 +132,7 @@ else
           fi
       else
           echo "creating link to $dest..."
-          ln -s "$existing" "$dest" || { echo "failed to create link \"$existing\", exiting."; exit 1; }
+          ln -s "$dest" "$existing" || { echo "failed to create link \"$existing\", exiting."; exit 1; }
       fi
   done
 
