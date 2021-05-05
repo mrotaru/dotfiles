@@ -43,3 +43,4 @@ unset env
 
 [ -f "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
 
+[ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
