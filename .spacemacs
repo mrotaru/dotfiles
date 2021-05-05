@@ -507,6 +507,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; start org-agenda automatically
+  ;(with-eval-after-load 'org (org-agenda-list t))
+
   ;; when opening a symlink, open "in-place" - don't go to the linked file
   (setq vc-follow-symlinks t)
 
@@ -519,9 +522,6 @@ before packages are loaded."
   (defun my-org-confirm-babel-evaluate (lang body)
     (not (member lang '("C++" "rust" "nim" "asm"))))
   (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-
-  ;; pressing "Enter" evaluates current code block
-  (define-key evil-org-mode-map (kbd "<normal-state> RET") 'org-ctrl-c-ctrl-c)
 
   ;; execute nasm code blocks
   (defun org-babel-execute:asm (body params)
@@ -554,7 +554,7 @@ before packages are loaded."
 
   ;; load langs
   (org-babel-do-load-languages
-   'org-babel-load-languages '((C . t) (rust . t) (asm . t)))
+   'org-babel-load-languages '((C . t) (rust . t)))
 
   (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
@@ -567,7 +567,9 @@ before packages are loaded."
                 ("WAITING" :foreground "orange" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
                 ("CANCELLED" :foreground "forest green" :weight bold))))
-  )
+
+  (add-to-list 'auto-mode-alist '("\\.inc\\'" . asm-mode))
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
