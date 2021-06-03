@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lsp
+   '(typescript
+     lsp
      (javascript
       :variables
       javascript-backend 'lsp
@@ -510,6 +511,13 @@ before packages are loaded."
   ;; start org-agenda automatically
   ;(with-eval-after-load 'org (org-agenda-list t))
 
+  ;; sort agenda items by tag first
+  (setq org-agenda-sorting-strategy 
+        '((agenda tag-up priority-down category-keep time-up)
+          (todo priority-down category-keep)
+          (tags priority-down category-keep)
+          (search category-keep)))
+
   ;; when opening a symlink, open "in-place" - don't go to the linked file
   (setq vc-follow-symlinks t)
 
@@ -538,7 +546,7 @@ before packages are loaded."
 
   ;; open links with Tor (TODO: causes new broser each time - open tab isntead)
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "tor-browser")
+        browse-url-generic-program "firefox")
 
   ;; execute nim code blocks (TODO: not working)
   (defun org-babel-execute:nim (body params)
