@@ -84,3 +84,8 @@ fi
 
 [ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
 
+. "$HOME/.cargo/env"
+
+# Wasmer
+export WASMER_DIR="/home/mihai/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

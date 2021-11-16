@@ -2,7 +2,7 @@
 
 # set PATH so it includes user's private bin directories
 if [ -d "$HOME/.npm-global/bin" ]; then
-    export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+    export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.nimble/bin:$PATH"
 fi
 
 # Nim binaries
@@ -44,3 +44,4 @@ unset env
 [ -f "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
 
 [ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
+. "$HOME/.cargo/env"
