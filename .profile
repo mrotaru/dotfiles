@@ -10,6 +10,11 @@ if [ -d "$HOME/code/Nim/bin" ]; then
     export PATH="$PATH:$HOME/code/Nim/bin"
 fi
 
+# go binaries
+if [ -d "/usr/local/go/bin" ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+fi
+
 [ -x "$(command -v setxkbmap)" ] && setxkbmap us
 
 # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows 
