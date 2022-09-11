@@ -5,6 +5,16 @@ if [ -d "$HOME/.npm-global/bin" ]; then
     export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.nimble/bin:$PATH"
 fi
 
+# pip binaries
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$PATH:$HOME/.local/bin"
+fi
+
+# Local, user binaries
+if [ -d "$HOME/bin" ]; then
+    export PATH="$PATH:$HOME/bin"
+fi
+
 # Nim binaries
 if [ -d "$HOME/code/Nim/bin" ]; then
     export PATH="$PATH:$HOME/code/Nim/bin"
@@ -50,4 +60,5 @@ fi
 [ -f "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
 
 [ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
-. "$HOME/.cargo/env"
+
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

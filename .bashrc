@@ -84,10 +84,15 @@ fi
 
 [ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
 
-[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-
 # Wasmer
 export WASMER_DIR="/home/mihai/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
+# broot
 [ -s "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
+
+# The next line updates PATH for the Google Cloud SDK.
+[ -s "$HOME/apps/google-cloud-sdk/path.bash.inc" ] && source "$HOME/apps/google-cloud-sdk/path.bash.inc"
+
+# The next line enables shell command completion for gcloud.
+[ -s "$HOME/apps/google-cloud-sdk/completion.bash.inc" ] && source "$HOME/apps/google-cloud-sdk/completion.bash.inc"
