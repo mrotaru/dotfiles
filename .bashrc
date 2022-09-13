@@ -96,3 +96,12 @@ export WASMER_DIR="/home/mihai/.wasmer"
 
 # The next line enables shell command completion for gcloud.
 [ -s "$HOME/apps/google-cloud-sdk/completion.bash.inc" ] && source "$HOME/apps/google-cloud-sdk/completion.bash.inc"
+
+# Completion for kubectl
+if [ -s "$HOME/.kube/completion.bash.inc" ]; then
+  source "$HOME/.kube/completion.bash.inc"
+  complete -F __start_kubectl k
+fi
+
+# rust: load cargo env
+[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

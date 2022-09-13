@@ -1,29 +1,12 @@
 # ~/.profile: executed by the command interpreter for login shells.
 
 # set PATH so it includes user's private bin directories
-if [ -d "$HOME/.npm-global/bin" ]; then
-    export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.nimble/bin:$PATH"
-fi
-
-# pip binaries
-if [ -d "$HOME/.local/bin" ]; then
-    export PATH="$PATH:$HOME/.local/bin"
-fi
-
-# Local, user binaries
-if [ -d "$HOME/bin" ]; then
-    export PATH="$PATH:$HOME/bin"
-fi
-
-# Nim binaries
-if [ -d "$HOME/code/Nim/bin" ]; then
-    export PATH="$PATH:$HOME/code/Nim/bin"
-fi
-
-# go binaries
-if [ -d "/usr/local/go/bin" ]; then
-    export PATH="$PATH:/usr/local/go/bin"
-fi
+[ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
+[ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
+[ -d "$HOME/.npm-global/bin" ] && export PATH="$HOME/.npm-global/bin"
+[ -d "$HOME/.nimble/bin" ] && export PATH="$HOME/.nimble/bin"
+[ -d "$HOME/code/Nim/bin" ] && export PATH="$PATH:$HOME/code/Nim/bin"
+[ -d "/usr/local/go/bin" ] && export PATH="$PATH:/usr/local/go/bin"
 
 [ -x "$(command -v setxkbmap)" ] && setxkbmap us
 
@@ -57,8 +40,8 @@ if [[ "$OSTYPE" == "msys" ]]; then
 	unset env
 fi
 
-[ -f "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
+[ -s "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
 
-[ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
+[ -s "$HOME/.profile.local" ] && source "$HOME/.profile.local"
 
-[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

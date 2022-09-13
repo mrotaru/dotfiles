@@ -72,19 +72,6 @@ if [[ "$OS" == 'Linux' ]]; then
 fi
 
 #-----------------------------------------------------------------
-# Vagrant
-#-----------------------------------------------------------------
-alias vu="vagrant up"
-alias vd="vagrant halt && vagrant destroy"
-alias vdu="vagrant halt && vagrant destroy -f && vagrant up"
-alias vh="vagrant halt"
-alias vs="vagrant status"
-alias vss="vagrant ssh"
-alias vsu="vagrant suspend"
-alias vup="vagrant up --provision"
-alias vdup="vagrant destroy -f && vagrant up --provision"
-
-#-----------------------------------------------------------------
 # git
 #-----------------------------------------------------------------
 
@@ -131,6 +118,11 @@ if [ -n "$GIT_FOREST_PATH" ]; then
 fi
 
 #-----------------------------------------------------------------
+# Kubernetes
+#-----------------------------------------------------------------
+alias k="kubectl"
+
+#-----------------------------------------------------------------
 # Tools
 #-----------------------------------------------------------------
 if [[ "$OS" = MINGW* ]]; then
@@ -146,7 +138,6 @@ fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias t='todo.sh'
 
 # vim on mac
 command -v mvim >/dev/null 2>&1 && alias vim='mvim -v'

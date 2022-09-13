@@ -19,6 +19,7 @@ files=(
  .tmux.conf
  .ackrc
  .i3
+ .npmrc
  )
 
 # MD5 is used to determine whether files are the same
@@ -32,7 +33,6 @@ function md5 () {
 # files that were overwritten will be copied to a backup folder
 backup_dir="$HOME/dotfiles-backup-$(date +"%Y-%m-%dT%k-%M")"
 
-# if git is installed, use git to clone the dotfiles repo
 if [ -x "$(command -v git)" ]; then
   echo "git found..."
   if [ -d ~/dotfiles ]; then 
@@ -47,31 +47,31 @@ if [ -x "$(command -v git)" ]; then
       }
   fi
    
-  # repo cloned; now link dotfiles to the ones in repo, creating backups for existing files
+  # repo cloned; now link dotfiles to the ones in repo, creating backups for user_file files
   for file in "${!files[@]}"; do
-      existing="$HOME/${files[file]}"
-      new="$HOME/dotfiles/${files[file]}"
+      user_file="$HOME/${files[file]}"
+      repo_file="$HOME/dotfiles/${files[file]}"
 
-      if [ -f "$existing" -o -h "$existing" ]; then
+      if [ -f "$user_file" -o -h "$user_file" ]; then
           # compute md5 checksums
-          md5_existing=$(md5 $existing)
-          md5_new=$(md5 $new)
+          md5_user_file=$(md5 $user_file)
+          md5_repo_file=$(md5 $repo_file)
 
-          # if different, create backup and remove existing file; then create link
-          if [ "$md5_existing" != "$md5_new" ]; then
-              echo "\"$existing\" exists and is different from \"$new\","
+          # if different, create backup and remove user_file file; then create link
+          if [ "$md5_user_file" != "$md5_repo_file" ]; then
+              echo "\"$user_file\" exists and is different from \"$repo_file\","
               echo "copying to \"$backup_dir\"..."
               [ ! -d "$backup_dir" ] && mkdir "$backup_dir"
-              cp "$existing" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
-              echo "removing \"$existing\"..."
-              rm "$existing" || { echo "Could not remove $existing, exiting..."; exit 1; }
-              ln -s "$new" "$existing"
+              cp "$user_file" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
+              echo "removing \"$user_file\"..."
+              rm "$user_file" || { echo "Could not remove $user_file, exiting..."; exit 1; }
+              ln -s "$repo_file" "$user_file"
           else
-              echo "\"$existing\" exists but is the same as \"$new\" (md5: $md5_existing)"
+              echo "\"$user_file\" exists but is the same as \"$repo_file\" (md5: $md5_user_file)"
           fi
       else
-          echo "creating link to $new..."
-          ln -s "$new" "$existing" || { echo "failed to create link \"$new\", exiting."; exit 1; }
+          echo "creating link to $repo_file..."
+          ln -s "$repo_file" "$user_file" || { echo "failed to create link \"$repo_file\", exiting."; exit 1; }
       fi
   done
 else
@@ -99,40 +99,40 @@ else
   [ ! -d ~/dotfiles ] && mkdir ~/dotfiles
   cd ~/dotfiles
   for file in "${!files[@]}"; do
-      src="${source_root}/${files[file]}"
-      dest="~/dotfiles/${files[file]}"
-      existing="~/${files[file]}"
-      if [ -f "$dest" -o -h "$dest" ]; then
+      user_file="$HOME/${files[file]}"
+      repo_file="~/dotfiles/${files[file]}"
+      repo_file_url="${source_root}/${files[file]}"
+      if [ -f "$repo_file" -o -h "$repo_file" ]; then
           # compute md5 checksums
-          md5_existing=$(md5 "$existing")
+          md5_user_file=$(md5 "$user_file")
 
           # download new file to tmp dir
           tmp_file_path="$tmp_dir/${files[file]}"
-          echo "downloading $src to $tmp_file_path..."
+          echo "downloading $repo_file_url to $tmp_file_path..."
           case "$get_method" in
-              "curl") cd $tmp_dir && { curl -O $src ; cd -; } ;;
-              "wget") wget --no-verbose "$src" -O "$tmp_file_path" ;;
+              "curl") cd $tmp_dir && { curl -O $repo_file_url ; cd -; } ;;
+              "wget") wget --no-verbose "$repo_file_url" -O "$tmp_file_path" ;;
           esac
           md5_new=$(md5 $tmp_file_path)
 
-          # if different, create backup and remove dest file; then create link
-          if [ "$md5_existing" != "$md5_new" ]; then
-              echo "\"$existing\" exists and is different from \"$tmp_file_path\","
-              echo "copying $existing to \"$backup_dir\"..."
+          # if different, create backup and remove repo_file file; then create link
+          if [ "$md5_user_file" != "$md5_new" ]; then
+              echo "\"$user_file\" exists and is different from \"$tmp_file_path\","
+              echo "copying $user_file to \"$backup_dir\"..."
               [ ! -d "$backup_dir" ] && mkdir "$backup_dir"
-              cp "$existing" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
-              echo "removing \"$existing\"..."
-              rm "$existing" || { echo "Could not remove $existing, exiting..."; exit 1; }
-              echo "copying \"$tmp_file_path\" to \"$dest\"..."
-              cp $tmp_file_path $dest
-              echo "linking $existing to \"$dest\"..."
-              ln -s "$existing" "$dest"
+              cp "$user_file" "$backup_dir" || { echo "Could not backup, exiting..."; exit 1; }
+              echo "removing \"$user_file\"..."
+              rm "$user_file" || { echo "Could not remove $user_file, exiting..."; exit 1; }
+              echo "copying \"$tmp_file_path\" to \"$repo_file\"..."
+              cp $tmp_file_path $repo_file
+              echo "linking $user_file to \"$repo_file\"..."
+              ln -s "$user_file" "$repo_file"
           else
-              echo "\"$dest\" exists but is the same as \"$new\" (md5: $md5_existing)"
+              echo "\"$repo_file\" exists but is the same as \"$new\" (md5: $md5_user_file)"
           fi
       else
-          echo "creating link to $dest..."
-          ln -s "$dest" "$existing" || { echo "failed to create link \"$existing\", exiting."; exit 1; }
+          echo "creating link to $repo_file..."
+          ln -s "$repo_file" "$user_file" || { echo "failed to create link \"$user_file\", exiting."; exit 1; }
       fi
   done
 
