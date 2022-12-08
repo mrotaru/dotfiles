@@ -103,5 +103,11 @@ if [ -s "$HOME/.kube/completion.bash.inc" ]; then
   complete -F __start_kubectl k
 fi
 
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# Completion for helm
+[ -s "$HOME/.kube/helm.completion.bash.inc" ] && source "$HOME/.kube/helm.completion.bash.inc"
+
 # rust: load cargo env
 [ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

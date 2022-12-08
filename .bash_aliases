@@ -36,10 +36,12 @@ alias ..="cd .."           # parent dir
 alias ...="cd ../.."       # grandparent dir
 alias -- -="cd -"          # previous dir
 alias cddo="cd ~/dotfiles" # dotfiles
-if [[ "$OS" = MINGW* ]]
-then
+if [[ "$OS" = MINGW* ]]; then
     #alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
     alias nav='explorer . 2> /dev/null'
+#elif [command -v xdg-open >/dev/null 2>&1  ]; then
+elif [ -x "$(command -v xdg-open)" ]; then
+    alias nav='xdg-open $(pwd)'
 else
     alias nav='nautilus ./ 2> /dev/null'
 fi

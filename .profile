@@ -3,8 +3,8 @@
 # set PATH so it includes user's private bin directories
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
 [ -d "$HOME/bin" ] && export PATH="$PATH:$HOME/bin"
-[ -d "$HOME/.npm-global/bin" ] && export PATH="$HOME/.npm-global/bin"
-[ -d "$HOME/.nimble/bin" ] && export PATH="$HOME/.nimble/bin"
+[ -d "$HOME/.npm-global/bin" ] && export PATH="$PATH:$HOME/.npm-global/bin"
+[ -d "$HOME/.nimble/bin" ] && export PATH="$PATH:$HOME/.nimble/bin"
 [ -d "$HOME/code/Nim/bin" ] && export PATH="$PATH:$HOME/code/Nim/bin"
 [ -d "/usr/local/go/bin" ] && export PATH="$PATH:/usr/local/go/bin"
 
