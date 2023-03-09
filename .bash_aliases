@@ -6,6 +6,7 @@ OS=`uname`
 alias eb='vim ~/.bashrc'
 alias sb='source ~/.bashrc'
 alias ea='vim ~/.bash_aliases'
+alias eal='vim ~/.bash_aliases.local'
 alias sa="source ~/.bash_aliases"
 alias ef='vim ~/.bash_functions'
 alias ddj='vim $NOTES/diary/$(date -I).md'
@@ -32,10 +33,12 @@ alias nicepath="echo \$PATH | tr ':' '\n'"
 #-----------------------------------------------------------------
 # Navigation
 #-----------------------------------------------------------------
-alias ..="cd .."           # parent dir
-alias ...="cd ../.."       # grandparent dir
-alias -- -="cd -"          # previous dir
-alias cddo="cd ~/dotfiles" # dotfiles
+alias ..="cd .."               # parent dir
+alias ...="cd ../.."           # grandparent dir
+alias ....="cd ../../.."       # 
+alias .....="cd ../../../.."   # 
+alias -- -="cd -"              # previous dir
+alias cddo="cd ~/dotfiles"     # dotfiles
 if [[ "$OS" = MINGW* ]]
 then
     #alias exp="explorer \"`pwd | sed -e 's:^\/::' | sed -e 's:^\([a-z]\):\1\::' | sed -e 's:\/:\\\\:g'`\""
@@ -92,14 +95,18 @@ alias vdup="vagrant destroy -f && vagrant up --provision"
 [ -x "$(command -v hub)" ] && { alias git=hub; }
 
 alias gs='git status'
+alias gpl='git pull'
+alias gps='git push origin HEAD'
 alias g='git status'
 alias ga='git add'
 alias gc='git commit'
 alias gb='git branch'
 alias gd='git diff'
 alias gdp='git diff HEAD^1' # diff from previous commit
+alias gdpf='git diff --stat HEAD^1' # show only changed files
 alias gcm='git commit -a -v -m'
 alias co='git checkout'
+alias cop='git checkout -' # same effect as git checkout @{-1}' (number can be used to go back/forward multiple branches)
 alias gdc='git diff --cached'
 alias gst='git status -s' # git >1.7.0
 alias pull='git pull'
@@ -108,10 +115,15 @@ alias gd='git diff'
 alias gca='git commit -v -a'
 alias gb='git branch'
 alias gbd='git branch -d'
+alias gbD='git branch -D'
 alias gba='git branch -a'
 alias gap='git add --patch'
 alias gl="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 10"
+alias gls="git log --pretty=format:'%Cred%h%Creset%C(yellow)%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 30"
+alias gll="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -n 30"
+alias gld="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -n 10"
 alias gla="git log --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias glaa="git log --pretty=format:'%>(20)%an %Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gh='find .git/hooks -type f ! -name "*.sample"'
 alias gdev='git checkout developmnet'
 alias scrum="git log --since=yesterday --format=oneline --abbrev-commit --author=mihai --no-merges"

@@ -89,3 +89,24 @@ fi
 # Wasmer
 export WASMER_DIR="/home/mihai/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+[[ -s "/home/mro/.gvm/scripts/gvm" ]] && source "/home/mro/.gvm/scripts/gvm"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+source /home/mro/.config/broot/launcher/bash/br
+
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="/home/mro/.local/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/mro/apps/google-cloud-sdk/path.bash.inc' ]; then . '/home/mro/apps/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/mro/apps/google-cloud-sdk/completion.bash.inc' ]; then . '/home/mro/apps/google-cloud-sdk/completion.bash.inc'; fi
