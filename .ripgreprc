@@ -1,0 +1,4 @@
+--type-add=jtsx:*.{js,ts,jsx,tsx}
+#--type-add=deps:*.lock, package-lock.json
+--type-add=deps:*.{lock,package.json}
+--smart-case

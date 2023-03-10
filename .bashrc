@@ -67,7 +67,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 [ -x "$(command -v aws_completer)" ] && complete -C $(which aws_completer) aws
 
 [ -f "$HOME/.inputrc" ] && bind -f "$HOME/.inputrc"
@@ -81,8 +80,6 @@ if [ -d "$HOME/.nvm" ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-
-[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
 
 # Wasmer
 export WASMER_DIR="/home/mihai/.wasmer"
@@ -111,3 +108,20 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # rust: load cargo env
 [ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+[[ -s "/home/mro/.gvm/scripts/gvm" ]] && source "/home/mro/.gvm/scripts/gvm"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
+
+if [ -d "$HOME/.pyenv" ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
+
+[ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
+
+[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"

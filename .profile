@@ -8,7 +8,18 @@
 [ -d "$HOME/code/Nim/bin" ] && export PATH="$PATH:$HOME/code/Nim/bin"
 [ -d "/usr/local/go/bin" ] && export PATH="$PATH:/usr/local/go/bin"
 
+if [ -d "$HOME/.npm-global/bin" ]; then
+    export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.nimble/bin"
+fi
+
+# Nim binaries
+if [ -d "$HOME/code/Nim/bin" ]; then
+    export PATH="$PATH:$HOME/code/Nim/bin"
+fi
+
 [ -x "$(command -v setxkbmap)" ] && setxkbmap us
+
+[ -x "$(command -v rg)" ] && export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows 
 if [[ "$OSTYPE" == "msys" ]]; then
@@ -41,7 +52,13 @@ if [[ "$OSTYPE" == "msys" ]]; then
 fi
 
 [ -s "$HOME/.inputrc.local" ] && source "$HOME/.inputrc.local"
-
 [ -s "$HOME/.profile.local" ] && source "$HOME/.profile.local"
-
 [ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
+
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+[ -d "$HOME/.rvm/bin" ] && export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+[ -x "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+ 
